@@ -10,13 +10,26 @@ terraform {
 provider "virtualbox" {}
 
 resource "virtualbox_vm" "node" {
-  count     = var.vm_count
-  name      = "terraform-vm-node-${count.index + 1}"
+  name      = "terraform-vm-node-1"
   image     = "https://app.vagrantup.com/ubuntu/boxes/bionic64/versions/20180903.0.0/providers/virtualbox.box"
-  cpus      = var.vm_cpu
-  memory    = var.vm_ram
-  
+  cpus      = 2
+  memory    = "2048mib"
+
   network_adapter {
     type = "nat"
+  } 
+}
+
+resource "virtualbox_vm" "node_2" {
+  name   = "terraform-vm-node-2"
+  image  = "https://app.vagrantup.com/ubuntu/boxes/bionic64/versions/20180903.0.0/providers/virtualbox.box"
+  cpus   = "2"
+  memory = "2048mib"
+
+
+  network_adapter {
+    type   = "nat"
   }
+
+  depends_on = [virtualbox_vm.node]
 }
