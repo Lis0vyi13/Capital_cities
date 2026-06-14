@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-  virtualbox = {
+    virtualbox = {
       source  = "shekeriev/virtualbox"
       version = "0.0.4"
     }
@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "virtualbox_vm" "node" {
-  name   = "node"
+  name   = "node-01"
   image  = var.vm_image
   cpus   = var.vm_cpus
   memory = var.vm_memory
@@ -17,4 +17,6 @@ resource "virtualbox_vm" "node" {
     type           = "hostonly"
     host_interface = "VirtualBox Host-Only Ethernet Adapter"
   }
+
+  status = "poweroff"
 }
